@@ -1275,7 +1275,7 @@ check_box_overlap:
 
 check_right:
     # Check if Box 2 is to the left of Box 1
-    bgt $t6, $t0, check_above
+    bge $t6, $t0, check_above
 
   lw $ra, 0($sp) 
     addi $sp, $sp,4	
@@ -1286,7 +1286,9 @@ check_right:
 check_above:
     # Check if Box 1 is completely above Box 2
     bge $t5, $t3, check_below
- 
+li $v0, 1
+	li $a0, 3	
+	syscall 
  lw $ra, 0($sp) 
     addi $sp, $sp,4	
     addi $sp, $sp, -4
@@ -1296,7 +1298,9 @@ check_above:
 check_below:
     # Check if Box 2 is completely above Box 1
     bge $t1, $t7, check_overlaping
-
+	li $v0, 1
+	li $a0, 4	
+	syscall 
  lw $ra, 0($sp) 
     addi $sp, $sp,4	
     addi $sp, $sp, -4
@@ -1305,7 +1309,9 @@ check_below:
 
 check_overlaping:
     # If none of the conditions were met, boxes must overlap
-    
+    li $v0, 1
+	li $a0, 5	
+	syscall 
     lw $ra, 0($sp)
     addi $sp, $sp, 4 #store $ra
     li $t0, 1
